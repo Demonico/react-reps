@@ -9,7 +9,7 @@ const queryType = {
 
 exports.handler = async (event, context) => {
   // console.log('params', event.queryStringParameters.state)
-  const { state, type } = event.queryStringParameters
+  const { stateCode, type } = event.queryStringParameters
   if (typeof queryType[type] === 'undefined') {
     return {
       statusCode: 400,
@@ -25,7 +25,7 @@ exports.handler = async (event, context) => {
     response = await axios.get(queryType[type], {
       baseURL: baseURL,
       params: {
-        state,
+        state: stateCode,
         output: 'json',
       },
     })
@@ -40,6 +40,6 @@ exports.handler = async (event, context) => {
   // console.log('response', response.data)
   return {
     statusCode: 200,
-    body: JSON.stringify({ data: response.data.results }),
+    body: JSON.stringify({ results: response.data.results }),
   }
 }

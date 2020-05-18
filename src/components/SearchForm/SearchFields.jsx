@@ -7,7 +7,6 @@ import states from '../../utils/states'
 export default function SearchFields() {
   const [isDisabled, setIsDisabled] = useState(true)
   const { errors = {} } = useFormikContext()
-  // const { fetchReps } = useRepContext()
 
   useEffect(() => {
     if (Object.keys(errors).length === 0) {

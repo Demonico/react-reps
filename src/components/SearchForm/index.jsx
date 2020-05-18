@@ -2,6 +2,8 @@ import React, { Fragment } from 'react'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 
+import { useRepContext } from '../../context/RepContext'
+
 import SearchFields from './SearchFields'
 
 const initialValues = {
@@ -19,13 +21,23 @@ const searchSchema = Yup.object().shape({
   stateCode: Yup.string().required('Please select a State.'),
 })
 
-export default function index() {
+export default function SearchForm() {
+  const { fetchReps, fetchSens } = useRepContext()
+
+  const submitHandler = (vals) => {
+    if (vals.type === 'rep') {
+      fetchReps(vals.stateCode)
+    } else {
+      fetchSens(vals.stateCode)
+    }
+  }
+
   return (
     <Fragment>
       <Formik
         initialErrors={initialErrors}
         initialValues={initialValues}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values) => submitHandler(values)}
         validationSchema={searchSchema}
       >
         {() => <SearchFields />}
