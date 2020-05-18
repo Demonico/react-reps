@@ -1,4 +1,2 @@
-[build]
-  publish = "_site/"
-  functions = "functions/"
-  command = "netlify build -f src/lambda"
+[build]  
+  functions = "functions/"  
