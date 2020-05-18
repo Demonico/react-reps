@@ -1,4 +1,5 @@
 import React, { useContext, useReducer } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
 import API from '../utils/API'
 
@@ -7,6 +8,7 @@ const RepContext = React.createContext({})
 export const useRepContext = () => useContext(RepContext)
 
 const initialState = {
+  listType: '',
   reps: [],
   sens: [],
 }
@@ -23,6 +25,11 @@ const repReducer = (state = initialState, action) => {
         ...state,
         sens: action.results,
       }
+    case 'CHANGE_LIST_TYPE':
+      return {
+        ...state,
+        listType: action.payload,
+      }
     default:
       return state
   }
@@ -38,21 +45,38 @@ const addSens = (results) => ({
   results,
 })
 
+const changeListType = (listType) => ({
+  type: 'CHANGE_LIST_TYPE',
+  payload: listType,
+})
+
+function injectID(arr) {
+  return arr.map((elem) => ({ ...elem, id: uuidv4() }))
+}
+
 export default function RepProvider({ children }) {
   const [repState, dispatch] = useReducer(repReducer, initialState)
 
   const fetchReps = async (stateCode) => {
     const response = await API.getReps(stateCode)
-    dispatch(addReps(response.data.results))
+    const withIDs = injectID(response.data.results)
+    dispatch(addReps(withIDs))
   }
 
   const fetchSens = async (stateCode) => {
     const response = await API.getSens(stateCode)
-    dispatch(addSens(response.data.results))
+    const withIDs = injectID(response.data.results)
+    dispatch(addSens(withIDs))
+  }
+
+  const setListType = (listType) => {
+    dispatch(changeListType(listType))
   }
 
   return (
-    <RepContext.Provider value={{ repState, fetchReps, fetchSens }}>
+    <RepContext.Provider
+      value={{ repState, fetchReps, fetchSens, setListType }}
+    >
       {children}
     </RepContext.Provider>
   )

@@ -1,12 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { Fragment, useEffect, useState } from 'react'
 import { ErrorMessage, Field, Form, useFormikContext } from 'formik'
 import { Alert, Button, Col, FormGroup, Label, Row } from 'reactstrap'
+
+import { useRepContext } from '../../context/RepContext'
 
 import states from '../../utils/states'
 
 export default function SearchFields() {
   const [isDisabled, setIsDisabled] = useState(true)
-  const { errors = {} } = useFormikContext()
+  const { errors = {}, values } = useFormikContext()
+  const { repState, setListType } = useRepContext()
 
   useEffect(() => {
     if (Object.keys(errors).length === 0) {
@@ -15,6 +19,12 @@ export default function SearchFields() {
       setIsDisabled(true)
     }
   }, [errors])
+
+  useEffect(() => {
+    if (repState.listType !== values.repType) {
+      setListType(values.repType)
+    }
+  }, [values, repState])
 
   return (
     <Fragment>

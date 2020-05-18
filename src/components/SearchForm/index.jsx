@@ -25,7 +25,7 @@ export default function SearchForm() {
   const { fetchReps, fetchSens } = useRepContext()
 
   const submitHandler = (vals) => {
-    if (vals.type === 'rep') {
+    if (vals.repType === 'rep') {
       fetchReps(vals.stateCode)
     } else {
       fetchSens(vals.stateCode)
