@@ -4,6 +4,7 @@ import { Container, Col, Row, Jumbotron } from 'reactstrap'
 import RepProvider from './context/RepContext'
 import SearchForm from './components/SearchForm'
 import RepList from './components/RepList'
+import RepInfo from './components/RepInfo'
 
 function App() {
   return (
@@ -21,7 +22,9 @@ function App() {
           <Col>
             <RepList />
           </Col>
-          <Col></Col>
+          <Col>
+            <RepInfo />
+          </Col>
         </Row>
       </RepProvider>
     </Container>

@@ -2,6 +2,8 @@ import React, { useContext, useReducer } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 import API from '../utils/API'
+import repReducer from './repReducer'
+import { addReps, addSens, changeListType, setRep } from './repActions'
 
 const RepContext = React.createContext({})
 
@@ -13,53 +15,6 @@ const initialState = {
   reps: [],
   sens: [],
 }
-
-const repReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'ADD_REPS':
-      return {
-        ...state,
-        reps: action.results,
-      }
-    case 'ADD_SENS':
-      return {
-        ...state,
-        sens: action.results,
-      }
-    case 'CHANGE_LIST_TYPE':
-      return {
-        ...state,
-        listType: action.payload,
-      }
-    case 'SET_REP':
-      return {
-        ...state,
-        rep: action.payload,
-      }
-    default:
-      return state
-  }
-}
-
-const addReps = (results) => ({
-  type: 'ADD_REPS',
-  results,
-})
-
-const addSens = (results) => ({
-  type: 'ADD_SENS',
-  results,
-})
-
-const changeListType = (listType) => ({
-  type: 'CHANGE_LIST_TYPE',
-  payload: listType,
-})
-
-const setRep = (rep) => ({
-  type: 'SET_REP',
-  payload: rep,
-})
 
 function injectID(arr) {
   return arr.map((elem) => ({ ...elem, id: uuidv4() }))
