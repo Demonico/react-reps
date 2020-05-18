@@ -3,13 +3,13 @@ import { Table } from 'reactstrap'
 
 import { useRepContext } from '../context/RepContext'
 
-const buildTableRows = (rows) => {
+const buildTableRows = (rows, clickHandler) => {
   if (rows.length === 0) {
     return <Fragment />
   }
-  return rows.map((row, clickHandler) => (
+  return rows.map((row) => (
     <tr key={row.id}>
-      <td onClick={() => clickHandler(row.id)}>{row.name}</td>
+      <td onClick={() => clickHandler(row)}>{row.name}</td>
       <td>{row.party}</td>
     </tr>
   ))
@@ -18,7 +18,7 @@ const buildTableRows = (rows) => {
 export default function RepList() {
   const [rows, setRows] = useState([])
   const [listName, setListName] = useState('')
-  const { repState } = useRepContext()
+  const { repState, selectRep } = useRepContext()
 
   useEffect(() => {
     if (repState) {
@@ -43,7 +43,7 @@ export default function RepList() {
     <Fragment>
       <h2 className="display-4">List: {listName}</h2>
       <Table striped>
-        <tbody>{buildTableRows(rows)}</tbody>
+        <tbody>{buildTableRows(rows, selectRep)}</tbody>
       </Table>
     </Fragment>
   )

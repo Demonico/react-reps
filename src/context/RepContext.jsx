@@ -9,6 +9,7 @@ export const useRepContext = () => useContext(RepContext)
 
 const initialState = {
   listType: '',
+  rep: null,
   reps: [],
   sens: [],
 }
@@ -30,6 +31,11 @@ const repReducer = (state = initialState, action) => {
         ...state,
         listType: action.payload,
       }
+    case 'SET_REP':
+      return {
+        ...state,
+        rep: action.payload,
+      }
     default:
       return state
   }
@@ -48,6 +54,11 @@ const addSens = (results) => ({
 const changeListType = (listType) => ({
   type: 'CHANGE_LIST_TYPE',
   payload: listType,
+})
+
+const setRep = (rep) => ({
+  type: 'SET_REP',
+  payload: rep,
 })
 
 function injectID(arr) {
@@ -73,9 +84,13 @@ export default function RepProvider({ children }) {
     dispatch(changeListType(listType))
   }
 
+  const selectRep = (rep) => {
+    dispatch(setRep(rep))
+  }
+
   return (
     <RepContext.Provider
-      value={{ repState, fetchReps, fetchSens, setListType }}
+      value={{ repState, fetchReps, fetchSens, setListType, selectRep }}
     >
       {children}
     </RepContext.Provider>
