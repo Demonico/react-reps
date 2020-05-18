@@ -30,42 +30,51 @@ export default function SearchFields() {
     <Fragment>
       <Form>
         <Row>
-          <Col>
-            <FormGroup>
-              <Label for="repType">Representative Type</Label>
-              <Field className="form-control" name="repType" as="select">
-                <option value=""></option>
-                <option value="rep">Representative</option>
-                <option value="sen">Senator</option>
-              </Field>
-              <ErrorMessage
-                name="repType"
-                render={(msg) => <Alert color="danger">{msg}</Alert>}
-              />
-            </FormGroup>
-          </Col>
-          <Col>
-            <FormGroup>
-              <Label for="stateCode">State</Label>
-              <Field className="form-control" name="stateCode" as="select">
-                <Fragment>
+          <Col md="5">
+            <FormGroup row>
+              <Label md="6" for="repType">
+                Representative Type
+              </Label>
+              <Col md="6">
+                <Field className="form-control" name="repType" as="select">
                   <option value=""></option>
-                  {states.stateList.map((state) => (
-                    <option key={state.abbreviation} value={state.abbreviation}>
-                      {state.name}
-                    </option>
-                  ))}
-                </Fragment>
-              </Field>
-              <ErrorMessage
-                name="stateCode"
-                render={(msg) => <Alert color="danger">{msg}</Alert>}
-              />
+                  <option value="rep">Representative</option>
+                  <option value="sen">Senator</option>
+                </Field>
+                <ErrorMessage
+                  name="repType"
+                  render={(msg) => <Alert color="danger">{msg}</Alert>}
+                />
+              </Col>
             </FormGroup>
           </Col>
-        </Row>
-        <Row>
-          <Col className="text-right">
+          <Col md="4">
+            <FormGroup row>
+              <Label md="4" for="stateCode">
+                State
+              </Label>
+              <Col md="8">
+                <Field className="form-control" name="stateCode" as="select">
+                  <Fragment>
+                    <option value=""></option>
+                    {states.stateList.map((state) => (
+                      <option
+                        key={state.abbreviation}
+                        value={state.abbreviation}
+                      >
+                        {state.name}
+                      </option>
+                    ))}
+                  </Fragment>
+                </Field>
+                <ErrorMessage
+                  name="stateCode"
+                  render={(msg) => <Alert color="danger">{msg}</Alert>}
+                />
+              </Col>
+            </FormGroup>
+          </Col>
+          <Col md="2" className="text-right ml-auto">
             <Button color="primary" type="submit" disabled={isDisabled}>
               Submit
             </Button>
