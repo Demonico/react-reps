@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { Field, Form, Formik } from 'formik'
-import { Col, FormGroup, Label } from 'reactstrap'
+import { Col, FormGroup, Label, Row } from 'reactstrap'
 
 import { useRepContext } from '../context/RepContext'
 
@@ -86,6 +86,14 @@ export default function RepInfo() {
           </Form>
         )}
       </Formik>
+      <Row>
+        <Col>Website</Col>
+        <Col className="text-right">
+          <a href={repInfo.link} target="_blank" rel="noopener noreferrer">
+            {repInfo.link}
+          </a>
+        </Col>
+      </Row>
     </Fragment>
   )
 }
