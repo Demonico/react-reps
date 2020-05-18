@@ -17,3 +17,7 @@ export const setRep = (rep) => ({
   type: 'SET_REP',
   payload: rep,
 })
+
+export const removeRep = {
+  type: 'REMOVE_REP',
+}

@@ -27,6 +27,11 @@ const repReducer = (state = initialState, action) => {
         ...state,
         rep: action.payload,
       }
+    case 'REMOVE_REP':
+      return {
+        ...state,
+        rep: {},
+      }
     default:
       return state
   }
