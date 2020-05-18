@@ -3,7 +3,13 @@ import { v4 as uuidv4 } from 'uuid'
 
 import API from '../utils/API'
 import repReducer from './repReducer'
-import { addReps, addSens, changeListType, setRep } from './repActions'
+import {
+  addReps,
+  addSens,
+  changeListType,
+  setRepAction,
+  removeRepAction,
+} from './repActions'
 
 const RepContext = React.createContext({})
 
@@ -39,13 +45,17 @@ export default function RepProvider({ children }) {
     dispatch(changeListType(listType))
   }
 
-  const selectRep = (rep) => {
-    dispatch(setRep(rep))
+  const setRep = (rep) => {
+    dispatch(setRepAction(rep))
+  }
+
+  const removeRep = () => {
+    dispatch(removeRepAction())
   }
 
   return (
     <RepContext.Provider
-      value={{ repState, fetchReps, fetchSens, setListType, selectRep }}
+      value={{ repState, fetchReps, fetchSens, setListType, setRep, removeRep }}
     >
       {children}
     </RepContext.Provider>

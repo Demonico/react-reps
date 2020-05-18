@@ -13,11 +13,11 @@ export const changeListType = (listType) => ({
   payload: listType,
 })
 
-export const setRep = (rep) => ({
+export const setRepAction = (rep) => ({
   type: 'SET_REP',
   payload: rep,
 })
 
-export const removeRep = {
+export const removeRepAction = () => ({
   type: 'REMOVE_REP',
-}
+})

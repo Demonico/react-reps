@@ -11,8 +11,16 @@ function splitName(name) {
   return { firstName, lastName }
 }
 
+const blankRep = {
+  firstName: '',
+  lastName: '',
+  district: '',
+  phone: '',
+  office: '',
+}
+
 export default function RepInfo() {
-  const [repInfo, setRepInfo] = useState({})
+  const [repInfo, setRepInfo] = useState(blankRep)
   const { repState } = useRepContext()
 
   useEffect(() => {
@@ -20,6 +28,8 @@ export default function RepInfo() {
       const { name } = repState.rep
       const sepName = splitName(name)
       setRepInfo({ ...repState.rep, ...sepName })
+    } else {
+      setRepInfo(blankRep)
     }
   }, [repState])
 
@@ -34,7 +44,7 @@ export default function RepInfo() {
                 First Name
               </Label>
               <Col sm={9}>
-                <Field className="form-control" name="firstName" />
+                <Field className="form-control" name="firstName" disabled />
               </Col>
             </FormGroup>
 
@@ -43,7 +53,7 @@ export default function RepInfo() {
                 Last Name
               </Label>
               <Col sm={9}>
-                <Field className="form-control" name="lastName" />
+                <Field className="form-control" name="lastName" disabled />
               </Col>
             </FormGroup>
 
@@ -52,7 +62,7 @@ export default function RepInfo() {
                 District
               </Label>
               <Col sm={9}>
-                <Field className="form-control" name="district" />
+                <Field className="form-control" name="district" disabled />
               </Col>
             </FormGroup>
 
@@ -61,7 +71,7 @@ export default function RepInfo() {
                 Phone
               </Label>
               <Col sm={9}>
-                <Field className="form-control" name="phone" />
+                <Field className="form-control" name="phone" disabled />
               </Col>
             </FormGroup>
 
@@ -70,7 +80,7 @@ export default function RepInfo() {
                 Office
               </Label>
               <Col sm={9}>
-                <Field className="form-control" name="office" />
+                <Field className="form-control" name="office" disabled />
               </Col>
             </FormGroup>
           </Form>

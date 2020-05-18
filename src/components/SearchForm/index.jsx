@@ -22,13 +22,15 @@ const searchSchema = Yup.object().shape({
 })
 
 export default function SearchForm() {
-  const { fetchReps, fetchSens } = useRepContext()
+  const { fetchReps, fetchSens, removeRep } = useRepContext()
 
   const submitHandler = (vals) => {
     if (vals.repType === 'rep') {
       fetchReps(vals.stateCode)
+      removeRep()
     } else {
       fetchSens(vals.stateCode)
+      removeRep()
     }
   }
 
